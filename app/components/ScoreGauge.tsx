@@ -5,6 +5,7 @@ const ScoreGauge = ({score = 75}: { score: number }) => {
     const pathRef = useRef<SVGPathElement>(null);
 
     const percentage = score / 100;
+    const strokeColor = score > 69 ? "#10b981" : score > 49 ? "#f59e0b" : "#ef4444";
 
     useEffect(() => {
         if (pathRef.current) {
@@ -16,39 +17,20 @@ const ScoreGauge = ({score = 75}: { score: number }) => {
         <div className="flex flex-col items-center">
             <div className="relative w-40 h-20">
                 <svg viewBox="0 0 100 50" className="w-full h-full">
-                    <defs>
-                        <linearGradient
-                            id="gaugeGradient"
-                            x1="0%"
-                            y1="0%"
-                            x2="100%"
-                            y2="0%"
-                        >
-                            <stop offset="0%" stopColor="#a78bfa"/>
-                            <stop offset="100%" stopColor="#fca5a5"/>
-                            {/*<stop offset="0%" stop-color="red"/>*/}
-                            {/*<stop offset="25%" stop-color="#FFC000"/>*/}
-                            {/*<stop offset="50%" stop-color="yellow"/>*/}
-                            {/*<stop offset="75%" stop-color="#9ACD32"/>*/}
-                            {/*<stop offset="100%" stop-color="green"/>*/}
-                        </linearGradient>
-                    </defs>
-
-                    {/* Background arc */}
                     <path
                         d="M10,50 A40,40 0 0,1 90,50"
                         fill="none"
-                        stroke="#e5e7eb"
+                        stroke="#94a3b8"
                         strokeWidth="10"
                         strokeLinecap="round"
+                        opacity="0.35"
                     />
 
-                    {/* Foreground arc with rounded ends */}
                     <path
                         ref={pathRef}
                         d="M10,50 A40,40 0 0,1 90,50"
                         fill="none"
-                        stroke="url(#gaugeGradient)"
+                        stroke={strokeColor}
                         strokeWidth="10"
                         strokeLinecap="round"
                         strokeDasharray={pathLength}

@@ -3,49 +3,62 @@ import {useLocation, useNavigate} from "react-router";
 import {useEffect} from "react";
 
 export const meta = () => ([
-    {title: 'Resumind | Auth'},
-    {name: 'description', content: 'Log into your account.'},
-])
+    {title: "Resume Studio | Sign In"},
+    {name: "description", content: "Log into your account."},
+]);
+
 const Auth = () => {
     const {isLoading, auth} = usePuterStore();
     const location = useLocation();
-    const next = location.search.split('next=')[1];
+    const nextParam = location.search.split("next=")[1];
+    const nextPath = nextParam ? decodeURIComponent(nextParam) : "/";
     const navigate = useNavigate();
 
     useEffect(() => {
-            if (auth.isAuthenticated) navigate(next);
-        }, [auth.isAuthenticated, next]
-    )
+        if (auth.isAuthenticated) navigate(nextPath);
+    }, [auth.isAuthenticated, navigate, nextPath]);
 
     return (
-        <main className="bg-[url('/images/bg-main.svg')] bg-cover min-h-screen flex items-center justify-center">
-            <div className="gradient-border shadow-lg">
-                <section className="flex flex-col gap-8 bg-white rounded-2xl p-10">
-                    <div className="flex flex-col items-center gap-2 text-center">
-                        <h1>Welcome</h1>
-                        <h2>Log In to continue your Job Journey</h2>
-                    </div>
-                    <div>
+        <main className="app-shell min-h-screen flex items-center justify-center px-4 py-10">
+            <section className="auth-layout panel w-full max-w-5xl overflow-hidden">
+                <aside className="auth-aside">
+                    <p className="auth-eyebrow">Resume Studio</p>
+                    <h1 className="auth-title">Sign in to continue your resume workflow</h1>
+                    <p className="auth-subtitle">
+                        Upload resumes, track ATS scoring, and review actionable feedback in one place.
+                    </p>
+                    <ul className="auth-feature-list">
+                        <li>Secure cloud-backed resume history</li>
+                        <li>Structured ATS insights and scoring</li>
+                        <li>Fast analysis for each application target</li>
+                    </ul>
+                </aside>
+
+                <div className="auth-form-wrap">
+                    <div className="auth-form-card panel">
+                        <div className="space-y-2 text-center">
+                            <h2 className="auth-form-heading">Welcome back</h2>
+                            <p className="auth-form-copy">Use your Puter account to access Resume Studio.</p>
+                        </div>
+
                         {isLoading ? (
-                            <button className="auth-button animate-pulse">
-                                <p>Signing you in ...</p>
+                            <button className="auth-button animate-pulse" type="button" disabled>
+                                Signing you in...
+                            </button>
+                        ) : auth.isAuthenticated ? (
+                            <button className="auth-button" type="button" onClick={auth.signOut}>
+                                Log out
                             </button>
                         ) : (
-                            <>
-                                {auth.isAuthenticated ? (
-                                    <button className="auth-button" onClick={auth.signOut}>
-                                        <p>Log Out</p>
-                                    </button>
-                                ) : (
-                                    <button className="auth-button" onClick={auth.signIn}>
-                                        <p>Log In</p>
-                                    </button>
-                                )}
-                            </>
+                            <button className="auth-button" type="button" onClick={auth.signIn}>
+                                Sign in with Puter
+                            </button>
                         )}
+
+                        <p className="auth-footnote">By continuing, you agree to authenticate with your Puter account.</p>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </main>
     );
 };
