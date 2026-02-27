@@ -5,44 +5,64 @@
 @theme {
     --font-sans: "Mona Sans", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --color-dark-200: #475467;
-    --color-light-blue-100: #c1d3f81a;
-    --color-light-blue-200: #a7bff14d;
+}
 
-    --color-badge-green: #d5faf1;
-    --color-badge-red: #f9e3e2;
-    --color-badge-yellow: #fceed8;
+:root {
+    color-scheme: light;
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-muted: #eef2f7;
+    --text: #111827;
+    --text-muted: #4b5563;
+    --border: #d1d9e6;
+    --primary: #334155;
+    --primary-hover: #1f2937;
+}
 
-    --color-badge-green-text: #254d4a;
-    --color-badge-red-text: #752522;
-    --color-badge-yellow-text: #73321b;
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --bg: #0b1220;
+        --surface: #111a2d;
+        --surface-muted: #1c2942;
+        --text: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border: #31405f;
+        --primary: #cbd5e1;
+        --primary-hover: #e2e8f0;
+    }
 }
 
 html,
 body {
-    @apply bg-white;
+    background: var(--bg);
+    color: var(--text);
 }
 
 main {
     @apply min-h-screen pt-10;
 }
+
 h1 {
-    @apply max-sm:text-[3rem] text-6xl  text-gradient leading-tight xl:tracking-[-2px] font-semibold;
+    @apply max-sm:text-[2.2rem] text-5xl leading-tight xl:tracking-[-1px] font-semibold;
+    color: var(--text);
 }
 
 h2 {
-    @apply max-sm:text-xl text-3xl text-dark-200;
+    @apply max-sm:text-xl text-3xl;
+    color: var(--text-muted);
 }
 
 label {
-    @apply text-dark-200;
-}
-input {
-    @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+    color: var(--text-muted);
 }
 
+input,
 textarea {
-    @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+    @apply w-full p-4 rounded-2xl focus:outline-none;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
 }
 
 form {
@@ -50,42 +70,129 @@ form {
 }
 
 @layer components {
-    .text-gradient {
-        @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
+    .app-shell {
+        background: var(--bg);
     }
-    .gradient-border {
-        @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200 p-4 rounded-2xl;
+
+    .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        @apply rounded-2xl;
     }
+
     .primary-button {
-        @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full;
+        background: var(--primary);
+        color: var(--bg);
+        @apply rounded-full px-4 py-2 cursor-pointer w-full transition-colors duration-200 font-semibold;
     }
+
+    .primary-button:hover {
+        background: var(--primary-hover);
+    }
+
     .resume-nav {
-        @apply flex flex-row justify-between items-center p-4 border-b border-gray-200;
+        @apply flex flex-row justify-between items-center p-4;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
     }
+
     .resume-summary {
         @apply flex flex-row items-center justify-center p-4 gap-4;
         .category {
-            @apply flex flex-row gap-2 items-center bg-gray-50 rounded-2xl p-4 w-full justify-between;
+            @apply flex flex-row gap-2 items-center rounded-2xl p-4 w-full justify-between;
+            background: var(--surface-muted);
+            border: 1px solid var(--border);
         }
     }
+
     .back-button {
-        @apply flex flex-row items-center gap-2 border border-gray-200 rounded-lg p-2 shadow-sm;
+        @apply flex flex-row items-center gap-2 rounded-lg p-2;
+        border: 1px solid var(--border);
+        background: var(--surface);
     }
+
+    .auth-layout {
+        @apply grid grid-cols-2 max-lg:grid-cols-1;
+    }
+
+    .auth-aside {
+        @apply p-10 max-sm:p-6 flex flex-col gap-5;
+        background: var(--surface-muted);
+        border-right: 1px solid var(--border);
+    }
+
+    .auth-eyebrow {
+        @apply text-sm font-semibold uppercase tracking-[0.2em];
+        color: var(--text-muted);
+    }
+
+    .auth-title {
+        @apply text-4xl max-sm:text-3xl font-semibold leading-tight;
+        color: var(--text);
+    }
+
+    .auth-subtitle {
+        @apply text-base leading-7;
+        color: var(--text-muted);
+    }
+
+    .auth-feature-list {
+        @apply flex flex-col gap-3 text-sm;
+        color: var(--text-muted);
+        list-style: disc;
+        padding-left: 1.25rem;
+    }
+
+    .auth-form-wrap {
+        @apply p-10 max-sm:p-6 flex items-center justify-center;
+        background: var(--surface);
+    }
+
+    .auth-form-card {
+        @apply w-full max-w-md p-8 max-sm:p-6 flex flex-col gap-6;
+    }
+
+    .auth-form-heading {
+        @apply text-3xl font-semibold;
+        color: var(--text);
+    }
+
+    .auth-form-copy {
+        @apply text-sm;
+        color: var(--text-muted);
+    }
+
     .auth-button {
-        @apply primary-gradient rounded-full py-4 px-8 cursor-pointer w-[600px] max-md:w-full text-3xl font-semibold text-white;
+        @apply rounded-xl py-3.5 px-6 cursor-pointer w-full text-base font-semibold transition-colors duration-200;
+        background: var(--primary);
+        color: var(--bg);
     }
+
+    .auth-button:hover {
+        background: var(--primary-hover);
+    }
+
+    .auth-footnote {
+        @apply text-xs text-center;
+        color: var(--text-muted);
+    }
+
     .main-section {
-        @apply flex flex-col items-center gap-8 pt-12 max-sm:mx-2 mx-15 pb-5;
+        @apply flex flex-col items-center gap-8 pt-12 max-sm:mx-2 mx-15 pb-8;
     }
+
     .page-heading {
         @apply flex flex-col items-center gap-8 max-w-4xl text-center max-sm:gap-4;
     }
+
     .resumes-section {
         @apply flex flex-wrap max-md:flex-col max-md:gap-4 gap-6 items-start max-md:items-center w-full max-w-[1850px] justify-evenly;
     }
 
     .resume-card {
-        @apply flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] bg-white rounded-2xl p-4;
+        @apply flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] rounded-2xl p-4;
+        background: var(--surface);
+        border: 1px solid var(--border);
     }
 
     .resume-card-header {
@@ -97,11 +204,9 @@ form {
     }
 
     .navbar {
-        @apply flex flex-row justify-between items-center bg-white rounded-full p-4 w-full px-10 max-w-[1200px] mx-auto;
-    }
-
-    .score-badge {
-        @apply flex flex-row items-center justify-center py-1 px-2 gap-4 rounded-[96px];
+        @apply flex flex-row justify-between items-center rounded-full p-4 w-full px-10 max-w-[1200px] mx-auto;
+        background: var(--surface);
+        border: 1px solid var(--border);
     }
 
     .form-div {
@@ -109,37 +214,15 @@ form {
     }
 
     .uplader-drag-area {
-        @apply relative p-8 text-center transition-all duration-700 cursor-pointer bg-white rounded-2xl min-h-[208px];
+        @apply relative p-8 text-center transition-all duration-700 cursor-pointer rounded-2xl min-h-[208px];
+        background: var(--surface);
+        border: 1px solid var(--border);
     }
+
     .uploader-selected-file {
-        @apply flex items-center justify-between p-3 bg-gray-50 rounded-2xl;
+        @apply flex items-center justify-between p-3 rounded-2xl;
+        background: var(--surface-muted);
     }
-}
-
-@utility bg-gradient {
-    background: linear-gradient(to bottom, #f0f4ff 60%, #fa7185cc);
-}
-
-@utility text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
-}
-
-@utility gradient-hover {
-    @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200;
-}
-
-@utility primary-gradient {
-    background: linear-gradient(to bottom, #8e98ff, #606beb);
-    box-shadow: 0px 74px 21px 0px #6678ef00;
-}
-
-@utility primary-gradient-hover {
-    background: linear-gradient(to bottom, #717dff, #4957eb);
-}
-
-@utility inset-shadow {
-    box-shadow: inset 0 0 12px 0 rgba(36, 99, 235, 0.2);
-    backdrop-filter: blur(10px);
 }
 
 @keyframes fadeIn {

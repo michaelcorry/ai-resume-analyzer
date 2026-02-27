@@ -8,7 +8,7 @@ import {prepareInstructions} from "../../constants";
 import {generateUuid} from "~/lib/utils";
 
 export const meta = () => ([
-    {title: 'Resumind | Review'},
+    {title: 'Resume Studio | Analyze'},
     {name: 'description', content: 'Detailed overview of your resume.'},
 ])
 
@@ -89,12 +89,12 @@ const Upload = () => {
     }
 
     return (
-        <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+        <main className="app-shell">
             <Navbar/>
 
             <section className="main-section">
                 <div className="page-heading py-16">
-                    <h1>Smart feedback for your dream job</h1>
+                    <h1>Smart resume feedback for your next role</h1>
                     {isProcessing ? (
                         <>
                             <h2>{statusText}</h2>

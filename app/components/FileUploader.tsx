@@ -31,7 +31,7 @@ const FileUploader = ({onFileSelect}: FileUploaderProps) => {
     }
 
     return (
-        <div className="w-full gradient-border">
+        <div className="w-full panel p-4">
             <div {...getRootProps()}>
                 <input {...getInputProps()} />
 
@@ -42,11 +42,11 @@ const FileUploader = ({onFileSelect}: FileUploaderProps) => {
                             <img src="/images/pdf.png" alt="pdf" className="size-10"/>
                             <div className="flex items-center spcae-x-3">
                                 <div>
-                                    <p className="text-sm text-gray-700 font-medium truncate max-w-xs">{selectedFile.name}</p>
-                                    <p className="text-gray-500 text-sm">{formatSize(selectedFile.size)}</p>
+                                    <p className="text-sm  font-medium truncate max-w-xs">{selectedFile.name}</p>
+                                    <p className=" text-sm">{formatSize(selectedFile.size)}</p>
                                 </div>
                             </div>
-                            <button className="p-2 cursor-pointer hover:bg-gray-200 hover:rounded-2xl"
+                            <button className="p-2 cursor-pointer hover:opacity-80"
                                     onClick={(e) => {
                                         handleRemoveFile()
                                     }}>
@@ -58,12 +58,12 @@ const FileUploader = ({onFileSelect}: FileUploaderProps) => {
                             <div className="mx-auto w-16 h-16 flex items-center justify-center mb-2">
                                 <img src="/icons/info.svg" alt="upload" className="size-20"/>
                             </div>
-                            <p className="text-lg text-gray-500">
+                            <p className="text-lg ">
                                 <span className="font-semibold">
                                     Click to upload
                                 </span> or drag and drop
                             </p>
-                            <p className="text-lg text-gray-500">PDF ({formatSize(maxFileSize)})</p>
+                            <p className="text-lg ">PDF ({formatSize(maxFileSize)})</p>
                         </div>
                     )}
                 </div>
